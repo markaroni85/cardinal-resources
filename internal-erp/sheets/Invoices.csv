@@ -1,0 +1,1 @@
+invoice_id,buyer_id,buyer_name,lot_id,material_type,tons,price_per_ton,total_amount,freight_cost,invoice_date,due_date,payment_date,status,amount_paid,amount_outstanding,notes

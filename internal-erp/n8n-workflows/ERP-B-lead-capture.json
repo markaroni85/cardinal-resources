@@ -1,0 +1,73 @@
+{
+  "name": "ERP-B: Lead Capture",
+  "description": "When a new row is added to CRS-Suppliers or CRS-Buyers via Google Form, send confirmation and notify team",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "onAddRow",
+        "sheetId": "{{ $env['SHEET_SUPPLIERS_ID'] }}",
+        "triggerColumns": [ "company_name" ]
+      },
+      "id": "sheet-trigger",
+      "name": "Google Sheets Trigger",
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "credentials": {
+        "googleSheetsSheet": {
+          "id": "{{ $env['SHEET_SUPPLIERS_ID'] }}"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formTitle": "New Supplier Added",
+        "formFields": {
+          "fields": [
+            { "name": "supplier_id", "value": "={{ $json.supplier_id }}" },
+            { "name": "company_name", "value": "={{ $json.company_name }}" },
+            { "name": "material", "value": "={{ $json.waste_type }}" },
+            { "name": "contact", "value": "={{ $json.contact_name }}" }
+          ]
+        }
+      },
+      "id": "log-lead",
+      "name": "Log Lead",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 3,
+      "position": [450, 250],
+      "credentials": {
+        "googleSheetsSheet": {
+          "id": "{{ $env['SHEET_DASHBOARD_ID'] }}"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://api.telegram.org/bot{{ $env['TELEGRAM_BOT_TOKEN'] }}/sendMessage",
+        "bodyParameters": {
+          "text": "🆕 New Lead: {{ $json.company_name }} — Material: {{ $json.waste_type }} — Contact: {{ $json.contact_name }}"
+        }
+      },
+      "id": "telegram-notify",
+      "name": "Telegram Notify",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [650, 300]
+    }
+  ],
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [{ "node": "Log Lead", "type": "main", "index": 0 }],
+        [{ "node": "Telegram Notify", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "saveData": "executionData",
+    "executionOrder": "v1"
+  },
+  "active": false,
+  "meta": { "instanceId": "cardinal-rs-erp" }
+}

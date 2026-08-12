@@ -1,0 +1,9 @@
+metric,value,period,updated_at,source
+Total Revenue,$0.00,This Month,,"ERP-G"
+Total Volume (tons),0.00,This Month,,"ERP-G"
+Gross Margin,$0.00,This Month,,"ERP-G"
+Margin Percentage,0.00%,This Month,,"ERP-G"
+AR Outstanding,$0.00,Current,,"ERP-B"
+AP Outstanding,$0.00,Current,,"ERP-B"
+Active Deals,0,Current,,"ERP-B"
+Cash Position,$0.00,Today,,"ERP-B"

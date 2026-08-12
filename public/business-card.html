@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cardinal Resource Solutions — Business Card</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;500&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #e8e8e8;
+      font-family: 'Open Sans', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 48px;
+      padding: 48px 24px;
+      min-height: 100vh;
+    }
+
+    h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #555;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .card-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Standard business card: 3.5" × 2" */
+    .card {
+      width: 3.5in;
+      height: 2in;
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.12);
+      flex-shrink: 0;
+    }
+
+    /* ── FRONT ─────────────────────────────────────── */
+    .card-front {
+      background: #1B3A5C;
+      display: flex;
+      align-items: stretch;
+    }
+
+    .front-accent {
+      width: 6px;
+      background: #C75A3C;
+      flex-shrink: 0;
+    }
+
+    .front-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 18px 18px 18px 20px;
+      gap: 16px;
+      position: relative;
+    }
+
+    /* Gold corner accent top-right */
+    .front-body::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 54px; height: 54px;
+      background: linear-gradient(225deg, rgba(212,168,67,0.18) 0%, transparent 65%);
+      border-radius: 0 6px 0 0;
+    }
+
+    .front-logo {
+      width: 62px;
+      height: 62px;
+      flex-shrink: 0;
+    }
+
+    .front-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 3px;
+    }
+
+    .company-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10.5px;
+      font-weight: 800;
+      color: #D4A843;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .company-tagline {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 7px;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .person-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.01em;
+      line-height: 1.2;
+    }
+
+    .person-title {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 7.5px;
+      color: #5B8DB8;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 1px;
+    }
+
+    .contact-icon {
+      width: 9px;
+      height: 9px;
+      opacity: 0.5;
+      flex-shrink: 0;
+    }
+
+    .contact-text {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 8px;
+      color: rgba(255,255,255,0.70);
+      letter-spacing: 0.02em;
+    }
+
+    .contact-text.web {
+      color: #D4A843;
+      font-weight: 600;
+    }
+
+    /* Bottom divider line */
+    .front-bottom-line {
+      position: absolute;
+      bottom: 14px;
+      left: 26px;
+      right: 18px;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(91,141,184,0.35) 0%, rgba(91,141,184,0) 100%);
+    }
+
+    /* ── BACK ──────────────────────────────────────── */
+    .card-back {
+      background: #0d1f30;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 0;
+    }
+
+    .back-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 18px 14px;
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .back-logo {
+      width: 52px;
+      height: 52px;
+    }
+
+    .back-company {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 7.5px;
+      font-weight: 700;
+      color: #D4A843;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .back-tagline {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 6px;
+      color: rgba(255,255,255,0.32);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .back-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 20px;
+    }
+
+    #qrcode canvas,
+    #qrcode img {
+      border-radius: 4px;
+      display: block;
+    }
+
+    .qr-label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 6.5px;
+      color: rgba(255,255,255,0.30);
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    /* ── PRINT ─────────────────────────────────────── */
+    @media print {
+      body {
+        background: white;
+        padding: 0.25in;
+        gap: 0.2in;
+      }
+      h2 { display: none; }
+      .card {
+        box-shadow: none;
+        border: 0.5px solid #ccc;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── FRONT ── -->
+  <div class="card-wrap">
+    <h2>Front</h2>
+    <div class="card card-front">
+      <div class="front-accent"></div>
+      <div class="front-body">
+
+        <!-- Compass Logo -->
+        <svg class="front-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="f-ah-s" viewBox="0 0 12 10" refX="10" refY="5" markerWidth="22" markerHeight="18" orient="auto" markerUnits="userSpaceOnUse">
+              <path d="M0,0 L12,5 L0,10 Z" fill="#5B8DB8"/>
+            </marker>
+            <marker id="f-ah-g" viewBox="0 0 12 10" refX="10" refY="5" markerWidth="22" markerHeight="18" orient="auto" markerUnits="userSpaceOnUse">
+              <path d="M0,0 L12,5 L0,10 Z" fill="#D4A843"/>
+            </marker>
+            <marker id="f-ah-t" viewBox="0 0 12 10" refX="10" refY="5" markerWidth="22" markerHeight="18" orient="auto" markerUnits="userSpaceOnUse">
+              <path d="M0,0 L12,5 L0,10 Z" fill="#C75A3C"/>
+            </marker>
+            <marker id="f-ah-gr" viewBox="0 0 12 10" refX="10" refY="5" markerWidth="22" markerHeight="18" orient="auto" markerUnits="userSpaceOnUse">
+              <path d="M0,0 L12,5 L0,10 Z" fill="#4A7C59"/>
+            </marker>
+          </defs>
+          <path d="M28,19 A38,38 0 0,1 72,19" fill="none" stroke="#5B8DB8" stroke-width="9" stroke-linecap="butt" marker-end="url(#f-ah-s)"/>
+          <path d="M81,28 A38,38 0 0,1 81,72" fill="none" stroke="#D4A843" stroke-width="9" stroke-linecap="butt" marker-end="url(#f-ah-g)"/>
+          <path d="M72,81 A38,38 0 0,1 28,81" fill="none" stroke="#C75A3C" stroke-width="9" stroke-linecap="butt" marker-end="url(#f-ah-t)"/>
+          <path d="M19,72 A38,38 0 0,1 19,28" fill="none" stroke="#4A7C59" stroke-width="9" stroke-linecap="butt" marker-end="url(#f-ah-gr)"/>
+          <path d="M50,14 L53,43 L63,37 L57,47 L70,50 L57,53 L63,63 L53,57 L50,86 L47,57 L37,63 L43,53 L30,50 L43,47 L37,37 L47,43 Z" fill="white"/>
+          <circle cx="50" cy="50" r="7" fill="#C75A3C"/>
+        </svg>
+
+        <div class="front-text">
+          <div class="company-name">Cardinal Resource<br>Solutions</div>
+          <div class="company-tagline">Industrial Plastic Waste Recovery</div>
+
+          <div class="person-name">Heather Templin</div>
+          <div class="person-title">Recovery Solutions Specialist</div>
+
+          <!-- Phone -->
+          <div class="contact-row">
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+            </svg>
+            <span class="contact-text">610.348.5027</span>
+          </div>
+
+          <!-- Website -->
+          <div class="contact-row">
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="rgba(212,168,67,0.70)" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+            </svg>
+            <span class="contact-text web">cardinalrs.com</span>
+          </div>
+
+          <!-- Location -->
+          <div class="contact-row">
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+            <span class="contact-text">Boyertown, PA &nbsp;·&nbsp; Serving Manufacturers Nationwide</span>
+          </div>
+        </div>
+
+        <div class="front-bottom-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BACK ── -->
+  <div class="card-wrap">
+    <h2>Back</h2>
+    <div class="card card-back">
+
+      <!-- Left: Logo + name -->
+      <div class="back-left">
+        <svg class="back-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="b-ah-s" viewBox="0 0 12 10" refX="10" refY="5" markerWidth="22" markerHeight="18" orient="auto" markerUnits="userSpaceOnUse">
+              <path d="M0,0 L12,5 L0,10 Z" fill="#5B8DB8"/>
+            </marker>
+            <marker id="b-ah-g" viewBox="0 0 12 10" refX="10" refY="5" markerWidth="22" markerHeight="18" orient="auto" markerUnits="userSpaceOnUse">
+              <path d="M0,0 L12,5 L0,10 Z" fill="#D4A843"/>
+            </marker>
+            <marker id="b-ah-t" viewBox="0 0 12 10" refX="10" refY="5" markerWidth="22" markerHeight="18" orient="auto" markerUnits="userSpaceOnUse">
+              <path d="M0,0 L12,5 L0,10 Z" fill="#C75A3C"/>
+            </marker>
+            <marker id="b-ah-gr" viewBox="0 0 12 10" refX="10" refY="5" markerWidth="22" markerHeight="18" orient="auto" markerUnits="userSpaceOnUse">
+              <path d="M0,0 L12,5 L0,10 Z" fill="#4A7C59"/>
+            </marker>
+          </defs>
+          <path d="M28,19 A38,38 0 0,1 72,19" fill="none" stroke="#5B8DB8" stroke-width="9" stroke-linecap="butt" marker-end="url(#b-ah-s)"/>
+          <path d="M81,28 A38,38 0 0,1 81,72" fill="none" stroke="#D4A843" stroke-width="9" stroke-linecap="butt" marker-end="url(#b-ah-g)"/>
+          <path d="M72,81 A38,38 0 0,1 28,81" fill="none" stroke="#C75A3C" stroke-width="9" stroke-linecap="butt" marker-end="url(#b-ah-t)"/>
+          <path d="M19,72 A38,38 0 0,1 19,28" fill="none" stroke="#4A7C59" stroke-width="9" stroke-linecap="butt" marker-end="url(#b-ah-gr)"/>
+          <path d="M50,14 L53,43 L63,37 L57,47 L70,50 L57,53 L63,63 L53,57 L50,86 L47,57 L37,63 L43,53 L30,50 L43,47 L37,37 L47,43 Z" fill="white"/>
+          <circle cx="50" cy="50" r="7" fill="#C75A3C"/>
+        </svg>
+        <div class="back-company">Cardinal<br>Resource<br>Solutions</div>
+        <div class="back-tagline">Industrial Plastic<br>Waste Recovery</div>
+      </div>
+
+      <!-- Right: QR Code -->
+      <div class="back-right">
+        <div id="qrcode"></div>
+        <div class="qr-label">Scan to visit our site</div>
+      </div>
+
+    </div>
+  </div>
+
+  <p style="font-family:'Open Sans',sans-serif;font-size:12px;color:#888;text-align:center;max-width:400px;line-height:1.6;">
+    To print: press <strong>Ctrl+P</strong> (or Cmd+P on Mac), set paper size to Letter or A4,
+    scale to fit, and print. Cut along card edges. For best results, print on 100 lb card stock.
+  </p>
+
+  <script>
+    new QRCode(document.getElementById('qrcode'), {
+      text: 'https://cardinalrs.com',
+      width: 110,
+      height: 110,
+      colorDark: '#ffffff',
+      colorLight: '#0d1f30',
+      correctLevel: QRCode.CorrectLevel.H,
+    });
+  </script>
+</body>
+</html>

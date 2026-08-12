@@ -1,0 +1,1 @@
+po_id,supplier_id,supplier_name,lot_id,material_type,estimated_tons,pickup_fee_per_ton,total_cost,freight_cost,po_date,pickup_date,status,payment_date,notes

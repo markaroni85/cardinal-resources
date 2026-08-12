@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cardinal Resource Solutions — 9-Step Business Launch</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;500;600&display=swap');
+    :root {
+      --navy:#1B3A5C; --terra:#C75A3C; --gold:#D4A843;
+      --slate:#5B8DB8; --forest:#4A7C59; --fog:#F4F4F2; --charcoal:#2C2C2C;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Open Sans',sans-serif;background:var(--fog);color:var(--charcoal);min-height:100vh;}
+
+    .header{background:var(--navy);padding:24px 32px;display:flex;align-items:center;gap:20px;border-left:6px solid var(--terra);}
+    .header svg{width:50px;height:50px;flex-shrink:0;}
+    .header-text h1{font-family:'Montserrat',sans-serif;font-size:21px;font-weight:800;color:var(--gold);letter-spacing:.03em;}
+    .header-text p{font-size:11px;color:rgba(255,255,255,.45);letter-spacing:.08em;text-transform:uppercase;margin-top:3px;}
+    .page-url{font-size:10px;color:rgba(255,255,255,.35);margin-top:8px;font-family:monospace;}
+
+    .progress-wrap{background:white;border-bottom:1px solid rgba(0,0,0,.08);padding:14px 32px;display:flex;align-items:center;gap:18px;position:sticky;top:0;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.07);}
+    .progress-label{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:var(--navy);white-space:nowrap;}
+    .progress-bar-bg{flex:1;height:10px;background:#e0e0e0;border-radius:99px;overflow:hidden;}
+    .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--forest),var(--gold));border-radius:99px;transition:width .4s ease;width:0%;}
+    .progress-pct{font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;color:var(--forest);min-width:40px;text-align:right;}
+
+    .tabs{background:white;border-bottom:2px solid #eee;padding:0 32px;display:flex;gap:0;overflow-x:auto;}
+    .tab{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;color:#999;padding:12px 18px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;letter-spacing:.04em;text-transform:uppercase;transition:all .2s;}
+    .tab.active{color:var(--navy);border-bottom-color:var(--terra);}
+    .tab:hover{color:var(--navy);}
+
+    .main{max-width:920px;margin:0 auto;padding:28px 20px 80px;}
+    .section{display:none;}
+    .section.active{display:block;}
+
+    .step-container{background:white;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow:hidden;margin-bottom:20px;border-left:5px solid var(--navy);}
+    .step-header{background:white;padding:16px 20px;display:flex;align-items:center;gap:14px;border-bottom:2px solid rgba(0,0,0,.06);}
+    .step-number{background:var(--terra);color:white;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:700;font-size:18px;flex-shrink:0;}
+    .step-title{flex:1;}
+    .step-title h2{font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .step-title p{font-size:12px;color:rgba(44,44,44,.65);line-height:1.5;}
+    .step-badge{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:white;background:var(--slate);border-radius:99px;padding:3px 10px;white-space:nowrap;}
+
+    .task-list{padding:12px 20px;}
+    .task{display:flex;align-items:flex-start;gap:12px;padding:10px 0;cursor:pointer;transition:background .15s;}
+    .task:hover{background:rgba(0,0,0,.02);}
+    .task.disabled{opacity:.5;cursor:not-allowed;}
+    .task-box{width:20px;height:20px;border:2px solid #ccc;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;transition:all .2s;}
+    .task.checked .task-box{background:var(--forest);border-color:var(--forest);}
+    .task.checked .task-box::after{content:'';width:5px;height:9px;border:2px solid white;border-top:none;border-left:none;transform:rotate(45deg) translateY(-1px);display:block;}
+    .task-body{flex:1;}
+    .task-name{font-size:13px;font-weight:600;color:var(--charcoal);line-height:1.3;}
+    .task.checked .task-name{color:#aaa;text-decoration:line-through;}
+    .task-desc{font-size:12px;color:rgba(44,44,44,.60);margin-top:4px;line-height:1.6;}
+    .task.checked .task-desc{color:#bbb;}
+    .task-meta{display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap;}
+
+    .tag{font-size:10px;font-weight:700;letter-spacing:.05em;padding:2px 8px;border-radius:4px;text-transform:uppercase;white-space:nowrap;}
+    .tag-critical{background:#fff0ee;color:#C75A3C;}
+    .tag-done{background:#eef7f1;color:#4A7C59;}
+    .tag-soon{background:#fdf6e3;color:#9a7000;}
+    .cost-free{background:#eef7f1;color:#2a7a40;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;}
+    .cost-low{background:#fdf6e3;color:#8a6000;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;}
+    .cost-med{background:#fff0ee;color:#a04020;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;}
+
+    .tlink{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:var(--slate);background:#eef3f8;border:1px solid rgba(91,141,184,.25);border-radius:5px;padding:3px 9px;text-decoration:none;letter-spacing:.02em;transition:all .2s;cursor:pointer;margin-top:6px;}
+    .tlink:hover{background:var(--slate);color:white;border-color:var(--slate);}
+
+    .summary-box{background:white;border-radius:8px;padding:16px 20px;margin-top:24px;border-left:5px solid var(--gold);box-shadow:0 2px 8px rgba(0,0,0,.06);}
+    .summary-box h4{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;color:var(--navy);margin-bottom:10px;text-transform:uppercase;letter-spacing:.03em;}
+    .summary-line{display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid rgba(0,0,0,.08);}
+    .summary-line:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+    .summary-total{display:flex;justify-content:space-between;font-size:13px;font-weight:700;color:var(--forest);margin-top:12px;padding-top:12px;border-top:2px solid var(--gold);}
+
+    /* Calendar Styles */
+    .calendar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:20px;}
+    .calendar-card{background:white;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow:hidden;}
+    .calendar-card-header{background:var(--navy);color:white;padding:12px 16px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:13px;}
+    .calendar-items{padding:12px 16px;}
+    .calendar-item{padding:10px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:12px;}
+    .calendar-item:last-child{border-bottom:none;}
+    .calendar-date{font-family:'Montserrat',sans-serif;font-weight:700;color:var(--navy);margin-bottom:2px;font-size:12px;}
+    .calendar-desc{font-size:11px;color:rgba(44,44,44,.65);line-height:1.5;}
+
+    /* Credentials styles */
+    .cred-intro{background:white;border-radius:8px;padding:20px 24px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,.06);border-left:5px solid var(--terra);}
+    .cred-intro h3{font-family:'Montserrat',sans-serif;font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+    .cred-intro p{font-size:12.5px;color:rgba(44,44,44,.65);line-height:1.6;}
+    .cred-card{background:white;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow:hidden;margin-bottom:16px;}
+    .cred-card-header{background:var(--navy);padding:12px 20px;display:flex;align-items:center;gap:10px;}
+    .cred-card-header span{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:white;}
+    .cred-badge{margin-left:auto;font-size:10px;font-weight:700;background:rgba(255,255,255,.15);color:white;padding:2px 10px;border-radius:99px;white-space:nowrap;}
+    .cred-body{padding:16px 20px 20px;display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    @media(max-width:600px){.cred-body{grid-template-columns:1fr;}}
+    .cred-field label{display:block;font-size:10px;font-weight:700;color:rgba(44,44,44,.45);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px;}
+    .cred-field input{width:100%;border:1px solid #ddd;border-radius:5px;padding:8px 12px;font-size:13px;font-family:'Open Sans',sans-serif;color:var(--charcoal);background:#fafafa;transition:border .2s;}
+    .cred-field input:focus{outline:none;border-color:var(--slate);background:white;}
+    .cred-field.full{grid-column:1/-1;}
+    .cred-note{font-size:11px;color:rgba(44,44,44,.42);margin-top:5px;line-height:1.5;}
+    .cred-divider{grid-column:1/-1;border:none;border-top:1px dashed #e8e8e8;margin:4px 0;}
+    .save-btn{background:var(--navy);color:white;border:none;border-radius:6px;padding:10px 22px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.04em;transition:background .2s;}
+    .save-btn:hover{background:#14304e;}
+    .save-confirm{font-size:11px;color:var(--forest);font-weight:600;margin-left:12px;opacity:0;transition:opacity .3s;}
+
+    @media(max-width:600px) {
+      .header{padding:16px 20px;}
+      .header-text h1{font-size:18px;}
+      .step-header{flex-direction:column;align-items:flex-start;}
+      .calendar-grid{grid-template-columns:1fr;}
+    }
+
+    @media print{
+      .progress-wrap,.tabs{position:static;box-shadow:none;}
+      .step-container{box-shadow:none;border:1px solid #ddd;}
+      .tlink{border:1px solid #ccc;color:#333;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <marker id="h-s" viewBox="0 0 12 10" refX="10" refY="5" markerWidth="22" markerHeight="18" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L12,5 L0,10 Z" fill="#5B8DB8"/></marker>
+      <marker id="h-g" viewBox="0 0 12 10" refX="10" refY="5" markerWidth="22" markerHeight="18" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L12,5 L0,10 Z" fill="#D4A843"/></marker>
+      <marker id="h-t" viewBox="0 0 12 10" refX="10" refY="5" markerWidth="22" markerHeight="18" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L12,5 L0,10 Z" fill="#C75A3C"/></marker>
+      <marker id="h-gr" viewBox="0 0 12 10" refX="10" refY="5" markerWidth="22" markerHeight="18" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L12,5 L0,10 Z" fill="#4A7C59"/></marker>
+    </defs>
+    <path d="M28,19 A38,38 0 0,1 72,19" fill="none" stroke="#5B8DB8" stroke-width="9" stroke-linecap="butt" marker-end="url(#h-s)"/>
+    <path d="M81,28 A38,38 0 0,1 81,72" fill="none" stroke="#D4A843" stroke-width="9" stroke-linecap="butt" marker-end="url(#h-g)"/>
+    <path d="M72,81 A38,38 0 0,1 28,81" fill="none" stroke="#C75A3C" stroke-width="9" stroke-linecap="butt" marker-end="url(#h-t)"/>
+    <path d="M19,72 A38,38 0 0,1 19,28" fill="none" stroke="#4A7C59" stroke-width="9" stroke-linecap="butt" marker-end="url(#h-gr)"/>
+    <path d="M50,14 L53,43 L63,37 L57,47 L70,50 L57,53 L63,63 L53,57 L50,86 L47,57 L37,63 L43,53 L30,50 L43,47 L37,37 L47,43 Z" fill="white"/>
+    <circle cx="50" cy="50" r="7" fill="#C75A3C"/>
+  </svg>
+  <div class="header-text">
+    <h1>Cardinal Resource Solutions</h1>
+    <p>9-Step Business Launch Sequence</p>
+    <div class="page-url">📍 cardinalrs.com/launch-checklist.html</div>
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-label">Launch Progress</div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+  <div class="progress-pct" id="progressPct">0/9</div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab('checklist')">✅ 9-Step Checklist</div>
+  <div class="tab" onclick="showTab('calendar')">📅 Annual Calendar</div>
+  <div class="tab" onclick="showTab('creds')">🔐 Credentials</div>
+</div>
+
+<div class="main">
+
+<!-- ═════════════ 9-STEP CHECKLIST ═════════════ -->
+<div class="section active" id="tab-checklist">
+
+<!-- STEP 1: Operating Agreement -->
+<div class="step-container">
+  <div class="step-header">
+    <div class="step-number">1</div>
+    <div class="step-title">
+      <h2>Finish the Operating Agreement</h2>
+      <p>Lock in the key decisions BEFORE any money moves</p>
+    </div>
+    <div class="step-badge" id="step1-badge">0 / 5</div>
+  </div>
+  <div class="task-list">
+    <div class="task" data-step="1" onclick="toggle(this)">
+      <div class="task-box"></div>
+      <div class="task-body">
+        <div class="task-name">Decide: Ownership Split & Contributions</div>
+        <div class="task-desc">You and Heather must agree on: Ownership % each (50/50?), Mark's cash contribution, Heather's cash contribution, non-cash contributions (relationships, contacts, labor), time commitment. Write these down now — most partnership conflicts start here.</div>
+        <div class="task-meta"><span class="tag tag-critical">CRITICAL</span><span class="cost-free">✓ Free</span></div>
+      </div>
+    </div>
+
+    <div class="task" data-step="1" onclick="toggle(this)">
+      <div class="task-box"></div>
+      <div class="task-body">
+        <div class="task-name">Decide: Decision-Making Authority</div>
+        <div class="task-desc">Agree before signing: Can either partner sign supplier/buyer contracts alone? Spending threshold (e.g., over $5,000 needs both signatures)? Can either hire employees or rent a warehouse unilaterally? Can either bring in a third partner? Set clear boundaries now.</div>
+        <div class="task-meta"><span class="tag tag-critical">CRITICAL</span><span class="cost-free">✓ Free</span></div>
+      </div>
+    </div>
+
+    <div class="task" data-step="1" onclick="toggle(this)">
+      <div class="task-box"></div>
+      <div class="task-body">
+        <div class="task-name">Decide: Profit Distribution & Draws</div>
+        <div class="task-desc">How do profits split? Does it match ownership % or different? How often do you take distributions (monthly, quarterly, annual)? How much stays in the business vs. gets paid out? As a partnership, you'll each pay self-employment taxes on your full share — discuss this.</div>
+        <div class="task-meta"><span class="tag tag-critical">CRITICAL</span><span class="cost-free">✓ Free</span></div>
+      </div>
+    </div>
+
+    <div class="task" data-step="1" onclick="toggle(this)">
+      <div class="task-box"></div>
+      <div class="task-body">
+        <div class="task-name">Decide: Buyout Terms & Deadlock Resolution</div>
+        <div class="task-desc">Buyout formula if either partner wants out? Can the departing partner force a sale of the whole LLC? 50/50 deadlock tie-breaker (arbitration? one party forces buyout?). Discuss NOW, not when you're angry.</div>
+        <div class="task-meta"><span class="tag tag-critical">CRITICAL</span><span class="cost-free">✓ Free</span></div>
+      </div>
+    </div>
+
+    <div class="task" data-step="1" onclick="toggle(this)">
+      <div class="task-box"></div>
+      <div class="task-body">
+        <div class="task-name">Draft & Sign Operating Agreement</div>
+        <div class="task-desc">Use SCORE.org template or Claude draft. Customize based on your decisions. Both sign & date two copies (each keeps one). PA does NOT require filing, but you MUST have it signed before revenue hits the bank. Then take to PA attorney for quick review (~$300–500).</div>
+        <div class="task-meta"><span class="tag tag-critical">CRITICAL</span><span class="cost-med">💵 $300–500</span></div>
+        <div class="task-links">
+          <a class="tlink" href="https://www.score.org/resource/business-plan-template-startup-business" target="_blank">SCORE.org Templates ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 2: Name Check -->
+<div class="step-container">
+  <div class="step-header">
+    <div class="step-number">2</div>
+    <div class="step-title">
+      <h2>Pick Your Name & Check Availability</h2>
+      <p>Search PA DOS business database to confirm "Cardinal Resource Solutions LLC" is available</p>
+    </div>
+  </div>
+  <div class="task-list">
+    <div class="task" data-step="2" onclick="toggle(this)">
+      <div class="task-box"></div>
+      <div class="task-body">
+        <div class="task-name">Search PA Department of State for name availability</div>
+        <div class="task-desc">Go to corporations.pa.gov and search "Cardinal Resource Solutions". If available, proceed to Step 3. If taken, choose a different name or add differentiator (e.g., "Cardinal Resource Solutions PA LLC").</div>
+        <div class="task-meta"><span class="tag tag-soon">Next</span><span class="cost-free">✓ Free</span></div>
+        <div class="task-links">
+          <a class="tlink" href="https://www.corporations.pa.gov/search/corpsearch" target="_blank">PA DOS Search ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 3: Registered Agent -->
+<div class="step-container">
+  <div class="step-header">
+    <div class="step-number">3</div>
+    <div class="step-title">
+      <h2>Sign Up for Registered Agent / CROP Service</h2>
+      <p>Do this BEFORE filing — your home address will NOT go on public record</p>
+    </div>
+  </div>
+  <div class="task-list">
+    <div class="task" data-step="3" onclick="toggle(this)">
+      <div class="task-box"></div>
+      <div class="task-body">
+        <div class="task-name">Sign up with registered agent service (e.g., Northwest Registered Agent)</div>
+        <div class="task-desc">The Certificate of Organization requires a registered office address. If you don't use an agent, your home address becomes permanently public. Northwest Registered Agent (~$125/yr) is a CROP in PA and often helps file the LLC for you. Get their address — you'll use it on the filing.</div>
+        <div class="task-meta"><span class="tag tag-soon">Next</span><span class="cost-low">💵 ~$125/year</span></div>
+        <div class="task-links">
+          <a class="tlink" href="https://www.nwregisteredagent.com" target="_blank">Northwest Registered Agent ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 4: Certificate Filing -->
+<div class="step-container">
+  <div class="step-header">
+    <div class="step-number">4</div>
+    <div class="step-title">
+      <h2>File Certificate of Organization with PA</h2>
+      <p>This legally creates your LLC. Takes ~7–10 business days online.</p>
+    </div>
+  </div>
+  <div class="task-list">
+    <div class="task" data-step="4" onclick="toggle(this)">
+      <div class="task-box"></div>
+      <div class="task-body">
+        <div class="task-name">File Articles of Organization online via PA Business One-Stop Hub</div>
+        <div class="task-desc">Go to PA Business One-Stop Hub and file online (15 minutes). Use the registered agent address from Step 3. Fee: $125. You'll receive a confirmation email with your Certificate PDF — save it permanently. You'll need it for bank account, EIN application, and all contracts. Expedited 24-hour service: additional $100.</div>
+        <div class="task-meta"><span class="tag tag-critical">CRITICAL</span><span class="cost-med">💵 $125</span></div>
+        <div class="task-links">
+          <a class="tlink" href="https://www.dos.pa.gov/BusinessCharities/Business/Pages/default.aspx" target="_blank">PA DOS Filing Hub ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 5: EIN -->
+<div class="step-container">
+  <div class="step-header">
+    <div class="step-number">5</div>
+    <div class="step-title">
+      <h2>Get Your EIN from IRS</h2>
+      <p>Free, takes 10 minutes, available immediately. Needed for bank account & contracts.</p>
+    </div>
+  </div>
+  <div class="task-list">
+    <div class="task" data-step="5" onclick="toggle(this)">
+      <div class="task-box"></div>
+      <div class="task-body">
+        <div class="task-name">Apply for EIN at IRS.gov</div>
+        <div class="task-desc">Go to irs.gov and use their online application (5 minutes). Your EIN is issued instantly on screen. Write it down and store it in multiple safe locations. The IRS will NOT retrieve it if you lose it — they'll only mail it to address on file (weeks). As a two-member LLC, you'll be classified as a partnership by default — that's fine.</div>
+        <div class="task-meta"><span class="tag tag-critical">CRITICAL</span><span class="cost-free">✓ Free</span></div>
+        <div class="task-links">
+          <a class="tlink" href="https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online" target="_blank">IRS EIN Application ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 6: Addresses & Phone -->
+<div class="step-container">
+  <div class="step-header">
+    <div class="step-number">6</div>
+    <div class="step-title">
+      <h2>Set Up Business Address & Phone</h2>
+      <p>UPS Store mailbox + OpenPhone + update all branded materials</p>
+    </div>
+    <div class="step-badge" id="step6-badge">0 / 3</div>
+  </div>
+  <div class="task-list">
+    <div class="task" data-step="6" onclick="toggle(this)">
+      <div class="task-box"></div>
+      <div class="task-body">
+        <div class="task-name">Open UPS Store mailbox (130 W Main St, Collegeville PA)</div>
+        <div class="task-desc">Bring two government IDs and your LLC Certificate. Complete USPS Form 1583. Add Heather as authorized recipient. This is your official public business address for contracts, supplier/buyer comms, and legal filings. Cost: $10–30/month. Protects your home address.</div>
+        <div class="task-meta"><span class="tag tag-soon">This week</span><span class="cost-low">💵 ~$10–30/mo</span></div>
+      </div>
+    </div>
+
+    <div class="task" data-step="6" onclick="toggle(this)">
+      <div class="task-box"></div>
+      <div class="task-body">
+        <div class="task-name">Set up OpenPhone business line</div>
+        <div class="task-desc">Sign up for OpenPhone (~$15/user/month = $30/mo for Mark & Heather). Get a local 610/484 number, shared between both of you, with auto-attendant greeting. Keeps business and personal calls separate, both see history, professional voicemail.</div>
+        <div class="task-meta"><span class="tag tag-soon">This week</span><span class="cost-low">💵 ~$30/month</span></div>
+        <div class="task-links">
+          <a class="tlink" href="https://www.openphone.com" target="_blank">OpenPhone ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="task" data-step="6" onclick="toggle(this)">
+      <div class="task-box"></div>
+      <div class="task-body">
+        <div class="task-name">Update website, email, and business cards</div>
+        <div class="task-desc">Update cardinalrs.com, email signatures, Google Business Profile, LinkedIn with UPS Store address and OpenPhone number. Print 250 business cards on high-quality stock from Staples or Vistaprint (~$25–50). All customer-facing communications now consistent and professional.</div>
+        <div class="task-meta"><span class="tag tag-soon">This week</span><span class="cost-low">💵 ~$25–50</span></div>
+        <div class="task-links">
+          <a class="tlink" href="https://cardinalrs.com" target="_blank">cardinalrs.com ↗</a>
+          <a class="tlink" href="https://www.staples.com/business-cards" target="_blank">Staples Cards ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 7: Bank Account -->
+<div class="step-container">
+  <div class="step-header">
+    <div class="step-number">7</div>
+    <div class="step-title">
+      <h2>Open Business Bank Account</h2>
+      <p>The bank will want: Certificate, EIN letter, operating agreement, both members present</p>
+    </div>
+  </div>
+  <div class="task-list">
+    <div class="task" data-step="7" onclick="toggle(this)">
+      <div class="task-box"></div>
+      <div class="task-body">
+        <div class="task-name">Open Mercury Bank or local credit union account</div>
+        <div class="task-desc">Mercury Bank is completely free (no minimum, no monthly fees, no transaction limits). Apply online using Certificate & EIN Letter. Never mix business and personal money — protects your LLC status and simplifies taxes. Includes free Visa debit card and clean dashboard. Bring both members' IDs and the operating agreement to the bank.</div>
+        <div class="task-meta"><span class="tag tag-critical">CRITICAL</span><span class="cost-free">✓ Free</span></div>
+        <div class="task-links">
+          <a class="tlink" href="https://mercury.com" target="_blank">mercury.com ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="task" data-step="7" onclick="toggle(this)">
+      <div class="task-box"></div>
+      <div class="task-body">
+        <div class="task-name">Set up Wave accounting and connect bank feed</div>
+        <div class="task-desc">Wave is completely free (invoicing, expense tracking, receipt scanning, P&L reports). Create account, connect Mercury bank so transactions import automatically. Set up Chart of Accounts: Material Purchases, Freight Costs, Revenue – Material Sales, Revenue – Tip Fees, Insurance, Legal/Professional. Create branded invoice template. Log every transaction from day one.</div>
+        <div class="task-meta"><span class="tag tag-soon">Week 1</span><span class="cost-free">✓ Free</span></div>
+        <div class="task-links">
+          <a class="tlink" href="https://www.waveapps.com" target="_blank">waveapps.com ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 8: Compliance & Protection -->
+<div class="step-container">
+  <div class="step-header">
+    <div class="step-number">8</div>
+    <div class="step-title">
+      <h2>Get Insurance & Confirm PA Regulatory</h2>
+      <p>General Liability + Contingent Cargo + E&O (waste brokers regret skipping this)</p>
+    </div>
+    <div class="step-badge" id="step8-badge">0 / 3</div>
+  </div>
+  <div class="task-list">
+    <div class="task" data-step="8" onclick="toggle(this)">
+      <div class="task-box"></div>
+      <div class="task-body">
+        <div class="task-name">Get General Liability + Contingent Cargo + E&O Insurance</div>
+        <div class="task-desc">General Liability: $1M/$2M coverage (manufacturers require this before signing). Contingent Cargo: covers you if a carrier damages/loses a load and their insurance doesn't cover it (THIS is what waste brokers skip and regret). Errors & Omissions: covers claims related to your advice or service. For small brokerage expect ~$500–900/yr for GL, ~$400–800/yr for cargo. Get instant quotes from Next Insurance or Hiscox. Heather's carrier contacts can recommend an agent who knows waste/freight. Once policies active, request COI (Certificate of Insurance) — you'll email it to every prospect. If asked to be "Additional Insured," contact insurer; typically free.</div>
+        <div class="task-meta"><span class="tag tag-critical">BEFORE FIRST DEAL</span><span class="cost-med">💵 ~$1,300–1,700/yr</span></div>
+        <div class="task-links">
+          <a class="tlink" href="https://www.nextinsurance.com" target="_blank">Next Insurance ↗</a>
+          <a class="tlink" href="https://www.hiscox.com/small-business-insurance" target="_blank">Hiscox ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="task" data-step="8" onclick="toggle(this)">
+      <div class="task-box"></div>
+      <div class="task-body">
+        <div class="task-name">Call PA DEP: Confirm waste transporter & regulatory requirements</div>
+        <div class="task-desc">PA Department of Environmental Protection: 717-783-2300. Anyone physically transporting residual/municipal waste may need a Waste Transporter Permit. If you only arrange transportation (don't haul yourself), different rules apply. This 20-minute call clarifies exactly what applies to your model BEFORE your first load moves. Also confirm plastics you handle qualify as non-hazardous under EPA Subtitle D. Penalties for non-compliance far outweigh permit cost.</div>
+        <div class="task-meta"><span class="tag tag-critical">BEFORE FIRST LOAD</span><span class="cost-free">✓ Free call</span></div>
+        <div class="task-links">
+          <a class="tlink" href="https://www.dep.pa.gov/Business/Land/Waste/SolidWaste/Pages/default.aspx" target="_blank">PA DEP Solid Waste ↗</a>
+          <a class="tlink" href="https://www.epa.gov/rcra/solid-waste-regulations" target="_blank">EPA Regulations ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="task" data-step="8" onclick="toggle(this)">
+      <div class="task-box"></div>
+      <div class="task-body">
+        <div class="task-name">Engage a CPA for tax planning & annual returns</div>
+        <div class="task-desc">Contact 2–3 CPAs in Boyertown/Lansdale area who specialize in small business & LLC partnerships. Your multi-member LLC files Form 1065 (partnership return) annually by March 15; each partner gets a K-1 showing profit/loss share. Discuss S-corp election strategy (could save self-employment taxes if substantial profit). Get quotes for annual 1065 ($500–1,000) and consulting ($200–300). Have CPA review operating agreement for tax implications.</div>
+        <div class="task-meta"><span class="tag tag-soon">Month 1–2</span><span class="cost-med">💵 $500–1,000/yr</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 9: Calendar Compliance -->
+<div class="step-container">
+  <div class="step-header">
+    <div class="step-number">9</div>
+    <div class="step-title">
+      <h2>Calendar the Compliance Dates</h2>
+      <p>Set reminders so you never miss PA or IRS deadlines</p>
+    </div>
+  </div>
+  <div class="task-list">
+    <div class="task" data-step="9" onclick="toggle(this)">
+      <div class="task-box"></div>
+      <div class="task-body">
+        <div class="task-name">Set up calendar reminders for annual filings</div>
+        <div class="task-desc"><strong>PA Annual Report:</strong> Due June 30 each year (~$125 fee). Set reminder 60 days early (May 1).
+<br/><strong>Form 1065 Partnership Return:</strong> Due March 15 each year. Set reminder 90 days early (Dec 15).
+<br/><strong>Insurance Renewal:</strong> Get exact date from policy. Set reminder 60 days early.
+<br/>Add to both Mark's and Heather's calendars AND your Wave accounting system. Missing these = penalties, lost liability protection, or tax filing penalties.</div>
+        <div class="task-meta"><span class="tag tag-soon">Ongoing</span><span class="cost-free">✓ Calendar mgmt</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COST SUMMARY -->
+<div class="summary-box">
+  <h4>Total Launch Cost (First Year)</h4>
+  <div class="summary-line"><span>Operating agreement attorney review (optional)</span><span style="font-weight:700;color:var(--terra);">$300–500</span></div>
+  <div class="summary-line"><span>Registered Agent (1 year)</span><span style="font-weight:700;color:var(--terra);">$125</span></div>
+  <div class="summary-line"><span>PA LLC Filing</span><span style="font-weight:700;color:var(--terra);">$125</span></div>
+  <div class="summary-line"><span>UPS Store Mailbox (12 months @ $15–25/mo)</span><span style="font-weight:700;color:var(--terra);">$180–300</span></div>
+  <div class="summary-line"><span>OpenPhone (12 months, 2 users @ $15/mo each)</span><span style="font-weight:700;color:var(--terra);">$360</span></div>
+  <div class="summary-line"><span>Business Cards</span><span style="font-weight:700;color:var(--terra);">$25–50</span></div>
+  <div class="summary-line"><span>General Liability Insurance (annual)</span><span style="font-weight:700;color:var(--terra);">$600–900</span></div>
+  <div class="summary-line"><span>Contingent Cargo Insurance (annual)</span><span style="font-weight:700;color:var(--terra);">$400–800</span></div>
+  <div class="summary-line"><span>CPA Services (1065 + consulting)</span><span style="font-weight:700;color:var(--terra);">$500–1,000</span></div>
+  <div class="summary-total">
+    <span>Total (First Year)</span>
+    <span>~$2,615–3,935</span>
+  </div>
+</div>
+
+</div><!-- /tab-checklist -->
+
+<!-- ANNUAL CALENDAR -->
+<div class="section" id="tab-calendar">
+  <div style="margin-bottom:20px;">
+    <h2 style="font-family:'Montserrat',sans-serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:8px;">Annual Compliance Calendar</h2>
+    <p style="font-size:12px;color:rgba(44,44,44,.65);line-height:1.6;">Mark these dates in your calendar with advance reminders.</p>
+  </div>
+
+  <div class="calendar-grid">
+    <div class="calendar-card">
+      <div class="calendar-card-header">📋 Monthly Tasks</div>
+      <div class="calendar-items">
+        <div class="calendar-item">
+          <div class="calendar-date">1st of Month</div>
+          <div class="calendar-desc">Review Wave accounting: reconcile bank feeds, check A/R aging, verify invoices sent.</div>
+        </div>
+        <div class="calendar-item">
+          <div class="calendar-date">15th of Month</div>
+          <div class="calendar-desc">Partner check-in: review deal pipelines, discuss progress, plan outreach.</div>
+        </div>
+        <div class="calendar-item">
+          <div class="calendar-date">Last Friday</div>
+          <div class="calendar-desc">P&L review: monthly summary, total tons, margin per ton vs. floor, forecast next month.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="calendar-card">
+      <div class="calendar-card-header">📊 Quarterly Tasks</div>
+      <div class="calendar-items">
+        <div class="calendar-item">
+          <div class="calendar-date">March 31</div>
+          <div class="calendar-desc"><strong>Tax Planning Call:</strong> Review YTD income, estimate taxes due, Q2 strategy.</div>
+        </div>
+        <div class="calendar-item">
+          <div class="calendar-date">June 30</div>
+          <div class="calendar-desc"><strong>PA Annual Report Due:</strong> File via PA DOS (~$125). Set reminder May 1.</div>
+        </div>
+        <div class="calendar-item">
+          <div class="calendar-date">Sept 30</div>
+          <div class="calendar-desc"><strong>Cash Flow Forecast:</strong> Review YTD vs. breakeven, forecast Q4, plan hiring/equipment.</div>
+        </div>
+        <div class="calendar-item">
+          <div class="calendar-date">Dec 31</div>
+          <div class="calendar-desc"><strong>Year-End Review:</strong> P&L, prepare CPA docs, plan next year's growth targets.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="calendar-card">
+      <div class="calendar-card-header">📅 Annual Hard Deadlines</div>
+      <div class="calendar-items">
+        <div class="calendar-item">
+          <div class="calendar-date">March 15</div>
+          <div class="calendar-desc"><strong>Form 1065 Due:</strong> Partnership return. Set reminder Dec 15. CPA fee: $500–1,000.</div>
+        </div>
+        <div class="calendar-item">
+          <div class="calendar-date">June 30</div>
+          <div class="calendar-desc"><strong>PA Annual Report Due:</strong> $125 fee. Set reminder May 1. Do NOT miss this — separate from federal taxes.</div>
+        </div>
+        <div class="calendar-item">
+          <div class="calendar-date">Insurance Renewal</div>
+          <div class="calendar-desc">Get exact date from policy. Set reminder 60 days early to shop rates if needed.</div>
+        </div>
+        <div class="calendar-item">
+          <div class="calendar-date">Anytime</div>
+          <div class="calendar-desc"><strong>Operating Agreement Review:</strong> Once per year with Heather. Any disagreements on spending, profit splits, buyout terms? Amend if needed.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CREDENTIALS -->
+<div class="section" id="tab-creds">
+  <div class="cred-intro">
+    <h3>🔐 Credentials & Account Reference</h3>
+    <p>Fill in usernames, passwords, and key contacts. Everything saves locally in your browser only. Press <strong>Ctrl+P</strong> to print a physical backup.</p>
+  </div>
+
+  <div style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:var(--navy);margin:20px 0 12px;text-transform:uppercase;letter-spacing:.03em;">Essential Accounts</div>
+
+  <div class="cred-card">
+    <div class="cred-card-header"><span>LLC Certificate & EIN</span></div>
+    <div class="cred-body">
+      <div class="cred-field full">
+        <label>LLC Legal Name</label>
+        <input type="text" id="c-llc-name" placeholder="Cardinal Resource Solutions LLC" />
+      </div>
+      <div class="cred-field">
+        <label>Entity ID</label>
+        <input type="text" id="c-entity-id" placeholder="Assigned after PA filing" />
+      </div>
+      <div class="cred-field">
+        <label>EIN (XX-XXXXXXX)</label>
+        <input type="text" id="c-ein" placeholder="12-3456789 — KEEP SAFE" />
+      </div>
+      <div class="cred-field full">
+        <label>Certificate PDF Location</label>
+        <input type="text" id="c-cert-loc" placeholder="Where you saved the PDF" />
+      </div>
+    </div>
+  </div>
+
+  <div class="cred-card">
+    <div class="cred-card-header"><span>Mercury Bank</span></div>
+    <div class="cred-body">
+      <div class="cred-field">
+        <label>Account Number</label>
+        <input type="text" id="c-mercury-acct" placeholder="Full account number" />
+      </div>
+      <div class="cred-field">
+        <label>Routing Number (ACH)</label>
+        <input type="text" id="c-mercury-routing" placeholder="9-digit routing" />
+      </div>
+      <div class="cred-field">
+        <label>Login Email</label>
+        <input type="text" id="c-mercury-email" placeholder="email@example.com" />
+      </div>
+      <div class="cred-field">
+        <label>Debit Card Last 4</label>
+        <input type="text" id="c-mercury-card" placeholder="Last 4 digits" />
+      </div>
+    </div>
+  </div>
+
+  <div class="cred-card">
+    <div class="cred-card-header"><span>Wave Accounting</span></div>
+    <div class="cred-body">
+      <div class="cred-field">
+        <label>Login Email</label>
+        <input type="text" id="c-wave-email" placeholder="email@example.com" />
+      </div>
+      <div class="cred-field">
+        <label>Mercury Connected?</label>
+        <input type="text" id="c-wave-connected" placeholder="Yes / No" />
+      </div>
+    </div>
+  </div>
+
+  <div class="cred-card">
+    <div class="cred-card-header"><span>Insurance — GL + Cargo</span></div>
+    <div class="cred-body">
+      <div class="cred-field">
+        <label>Insurance Company</label>
+        <input type="text" id="c-ins-company" placeholder="e.g., Next, Hiscox" />
+      </div>
+      <div class="cred-field">
+        <label>GL Policy #</label>
+        <input type="text" id="c-ins-gl" placeholder="Policy number" />
+      </div>
+      <div class="cred-field">
+        <label>Cargo Policy #</label>
+        <input type="text" id="c-ins-cargo" placeholder="Policy number" />
+      </div>
+      <div class="cred-field">
+        <label>Renewal Date</label>
+        <input type="text" id="c-ins-renew" placeholder="MM/DD/YYYY" />
+      </div>
+      <div class="cred-field full">
+        <label>COI PDF Location</label>
+        <input type="text" id="c-coi-loc" placeholder="Where you saved it" />
+      </div>
+    </div>
+  </div>
+
+  <div class="cred-card">
+    <div class="cred-card-header"><span>CPA / Tax Preparation</span></div>
+    <div class="cred-body">
+      <div class="cred-field full">
+        <label>CPA Firm</label>
+        <input type="text" id="c-cpa-firm" placeholder="Firm name" />
+      </div>
+      <div class="cred-field">
+        <label>Contact Name</label>
+        <input type="text" id="c-cpa-name" placeholder="Your CPA" />
+      </div>
+      <div class="cred-field">
+        <label>Phone / Email</label>
+        <input type="text" id="c-cpa-phone" placeholder="Contact info" />
+      </div>
+      <div class="cred-field">
+        <label>Annual Fee</label>
+        <input type="text" id="c-cpa-fee" placeholder="$500–1,000" />
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:20px;display:flex;align-items:center;flex-wrap:wrap;gap:12px;">
+    <button class="save-btn" onclick="saveAll()">💾 Save All to Browser</button>
+    <span class="save-confirm" id="saveConfirm">✓ Saved!</span>
+  </div>
+
+</div>
+
+</div><!-- /main -->
+
+<script>
+  function showTab(name) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    if (event && event.currentTarget) event.currentTarget.classList.add('active');
+  }
+
+  function toggle(el) {
+    if (event && event.target.closest('a')) return;
+    if (el.classList.contains('disabled')) return;
+    el.classList.toggle('checked');
+    saveTasks();
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const all = document.querySelectorAll('.task');
+    const done = document.querySelectorAll('.task.checked');
+    const pct = all.length ? Math.round((done.length / all.length) * 100) : 0;
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressPct').textContent = `${done.length}/${all.length}`;
+
+    // Per-step counts
+    for (let step = 1; step <= 9; step++) {
+      const tasks = document.querySelectorAll(`[data-step="${step}"]`);
+      const checked = document.querySelectorAll(`[data-step="${step}"].checked`);
+      const badge = document.getElementById(`step${step}-badge`);
+      if (badge && tasks.length > 0) {
+        badge.textContent = `${checked.length} / ${tasks.length}`;
+        badge.classList.toggle('complete', checked.length === tasks.length && tasks.length > 0);
+      }
+    }
+  }
+
+  function saveTasks() {
+    const state = [];
+    document.querySelectorAll('.task').forEach(t => state.push(t.classList.contains('checked') ? 1 : 0));
+    try { localStorage.setItem('crs-tasks', JSON.stringify(state)); } catch(e) {}
+  }
+
+  function loadTasks() {
+    try {
+      const state = JSON.parse(localStorage.getItem('crs-tasks') || '[]');
+      document.querySelectorAll('.task').forEach((t, i) => { if (state[i]) t.classList.add('checked'); });
+    } catch(e) {}
+    updateProgress();
+  }
+
+  function saveAll() {
+    const data = {};
+    document.querySelectorAll('.cred-field input').forEach(f => { if (f.id) data[f.id] = f.value; });
+    try {
+      localStorage.setItem('crs-creds', JSON.stringify(data));
+      const c = document.getElementById('saveConfirm');
+      c.style.opacity = '1';
+      setTimeout(() => c.style.opacity = '0', 2500);
+    } catch(e) {}
+  }
+
+  function loadCreds() {
+    try {
+      const data = JSON.parse(localStorage.getItem('crs-creds') || '{}');
+      Object.keys(data).forEach(id => { const el = document.getElementById(id); if (el) el.value = data[id]; });
+    } catch(e) {}
+  }
+
+  document.addEventListener('input', e => { if (e.target.closest('.cred-field')) saveAll(); });
+
+  loadTasks();
+  loadCreds();
+</script>
+</body>
+</html>

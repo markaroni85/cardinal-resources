@@ -1,0 +1,76 @@
+{
+  "name": "ERP-A: Price Monitor",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [{ "field": "minutes", "value": 60 }]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "command": "echo \"Starting price monitor...\""
+      },
+      "id": "log-start",
+      "name": "Log Start",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT * FROM commodity_pricing ORDER BY date DESC LIMIT 10"
+      },
+      "id": "query-pricing",
+      "name": "Query Current Pricing",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 3,
+      "position": [650, 250],
+      "credentials": {
+        "googleSheetsSheet": {
+          "id": "{{ $env['SHEET_PRICING_ID'] }}"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://api.telegram.org/bot{{ $env['TELEGRAM_BOT_TOKEN'] }}/sendMessage",
+        "bodyParameters": {
+          "text": "Price Monitor: Daily price check completed. Check CRS-CommodityPricing sheet for latest data."
+        }
+      },
+      "id": "telegram-alert",
+      "name": "Telegram Alert",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [850, 300]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [[{ "node": "Log Start", "type": "main", "index": 0 }]]
+    },
+    "Log Start": {
+      "main": [[{ "node": "Query Current Pricing", "type": "main", "index": 0 }]]
+    },
+    "Query Current Pricing": {
+      "main": [[{ "node": "Telegram Alert", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "saveData": "executionData",
+    "executionOrder": "v1"
+  },
+  "active": false,
+  "meta": {
+    "instanceId": "cardinal-rs-erp"
+  },
+  "tags": []
+}

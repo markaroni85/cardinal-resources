@@ -1,0 +1,1 @@
+load_id,lot_id,supplier_name,buyer_name,carrier,truck_number,driver_name,driver_phone,weight_tons,pickup_date,delivery_date,freight_cost,status,manifest_file,notes
