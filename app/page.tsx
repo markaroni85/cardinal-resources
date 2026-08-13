@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import Logo from '@/components/Logo'
+import Link from 'next/link'
 
 // ─── Hero Section ──────────────────────────────────────────────────────────────
 function HeroSection() {
@@ -7,7 +7,7 @@ function HeroSection() {
     <section
       className="relative min-h-[76vh] flex items-center overflow-hidden"
       style={{
-        backgroundImage: 'url(/hero-bg.jpg)',
+        backgroundImage: 'url(https://images.unsplash.com/photo-1504672935809-bb5355f7c2a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80)',
         backgroundSize: 'cover',
         backgroundPosition: 'center center',
       }}
@@ -17,8 +17,7 @@ function HeroSection() {
         className="absolute inset-0"
         aria-hidden="true"
         style={{
-          background:
-            'linear-gradient(105deg, rgba(3,8,15,0.82) 0%, rgba(3,8,15,0.65) 45%, rgba(3,8,15,0.30) 75%, rgba(3,8,15,0.15) 100%)',
+          background: 'linear-gradient(105deg, rgba(3,8,15,0.82) 0%, rgba(3,8,15,0.65) 45%, rgba(3,8,15,0.30) 75%, rgba(3,8,15,0.15) 100%)',
         }}
       />
 
@@ -58,13 +57,13 @@ function HeroSection() {
                 backgroundClip: 'text',
               }}
             >
-              We Recover<br />What Others<br />Reject.
+              We Recover<br />What Others Reject.
             </h1>
             <p
               className="font-body text-white/75 text-lg leading-relaxed mb-10 max-w-lg"
               style={{ opacity: 0, animation: 'fadeUp 0.8s ease 0.35s forwards' }}
             >
-              We take the complex plastic waste traditional recyclers won&apos;t touch —
+              We take the complex plastic waste traditional recyclers won't touch —
               label matrix, transit trays, adhesive films — and divert every pound from
               the landfill. Fully documented. Nationwide service.
             </p>
@@ -148,7 +147,7 @@ function StatsStrip() {
   )
 }
 
-// ─── Value Props ───────────────────────────────────────────────────────────────
+// ─── Value Props ────────────────────────────────────────────────────────────────
 function ValuePropsSection() {
   const cards = [
     {
@@ -295,7 +294,7 @@ function ProblemSolutionSection() {
             Cardinal Takes What No One Else Will
           </h2>
           <p className="font-body text-white/70 leading-relaxed mb-8 reveal reveal-delay-2">
-            We connect your waste stream to specialized recovery infrastructure that doesn&apos;t
+            We connect your waste stream to specialized recovery infrastructure that doesn't
             exist in conventional recycling. Every pound is documented, diverted, and
             reported — ready for your ESG records and Zero-Waste certification.
           </p>
@@ -406,14 +405,9 @@ function IndustriesSection() {
     { icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', name: 'Waste Management Operations' },
     { icon: 'M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18', name: 'Automotive Parts Manufacturers' },
     { icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', name: 'Medical Device & Pharmaceutical' },
-    { icon: 'M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z', name: 'Electronics & Technology Makers' },
-    { icon: 'M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z M15 13a3 3 0 11-6 0 3 3 0 016 0z', name: 'Food & Beverage Processors' },
-    { icon: 'M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z', name: 'Printing & Commercial Print' },
-    { icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 5h2a2 2 0 002-2v-2a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2z', name: 'Chemical & Industrial Manufacturers' },
     { icon: 'M12 19l9 2-9-18-9 18 9-2zm0 0v-8', name: 'Aerospace & Defense Suppliers' },
-    { icon: 'M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z', name: 'Retail & Consumer Goods Chains' },
     { icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z', name: 'Agricultural Plastics & Film' },
-    { icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10', name: 'Furniture & Home Goods Makers' },
+    { icon: 'M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z', name: 'Furniture & Home Goods Makers' },
     { icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2', name: 'Personal Care & Cosmetics' },
   ]
 
@@ -429,8 +423,8 @@ function IndustriesSection() {
             Industries We Serve
           </h2>
           <p className="font-body text-charcoal/70 text-lg max-w-2xl mx-auto reveal reveal-delay-2">
-            If your operation generates complex plastic waste that traditional recyclers won&apos;t take,
-            you&apos;re exactly who we built this for. Don&apos;t see your industry? Contact us anyway.
+            If your operation generates complex plastic waste that traditional recyclers won't take,
+            you're exactly who we built this for. Don't see your industry? Contact us anyway.
           </p>
         </div>
 
@@ -484,7 +478,7 @@ function TestimonialsSection() {
                 ))}
               </div>
               <p className="font-body text-charcoal/60 text-sm italic leading-relaxed mb-5">
-                &ldquo;Partner feedback coming soon. We&apos;re actively building relationships with
+                &ldquo;Partner feedback coming soon. We're actively building relationships with
                 manufacturers across the region—yours could be featured here.&rdquo;
               </p>
               <div className="flex items-center gap-3">
@@ -556,10 +550,10 @@ function CTASection() {
             className="font-display font-bold text-white mb-4 reveal"
             style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)' }}
           >
-            Your Waste Has Value. Let&apos;s Prove It.
+            Your Waste Has Value. Let's Prove It.
           </h2>
           <p className="font-body text-white/80 text-lg max-w-2xl mx-auto reveal reveal-delay-1">
-            Start with a free sample evaluation. Send us 5–10 lbs and we&apos;ll tell you exactly
+            Start with a free sample evaluation. Send us 5–10 lbs and we'll tell you exactly
             what we can do — within 5 business days.
           </p>
         </div>

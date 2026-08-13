@@ -1,0 +1,11 @@
+{
+    "app": {
+        "env": ["NODE_ENV"]
+    },
+    "pages": [
+        {
+            "source": ".",
+            "destination": "/"
+        }
+    ]
+}
