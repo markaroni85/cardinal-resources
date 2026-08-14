@@ -43,7 +43,7 @@ function HeroSection() {
               className="section-label mb-5 block"
               style={{ opacity: 0, animation: 'fadeIn 0.6s ease 0.1s forwards' }}
             >
-              Plastic Waste Recovery Solutions
+              Sustainable Plastic Recovery Solutions
             </p>
             <h1
               className="font-display font-bold leading-none mb-6"
