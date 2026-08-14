@@ -1,11 +1,13 @@
 {
-    "app": {
-        "env": ["NODE_ENV"]
+    "projectId": "prj_CGibmkDgjpmms8I89jcZUKXOIK6S",
+    "orgId": "team_6Y8y9sZBXMmWT5kY3LYEFNK1",
+    "projectName": "cardinal-rs",
+    "production": {
+        "domain": "cardinalresourcesolutions.com",
+        "subdomains": ["www.cardinalresourcesolutions.com"],
+        "previewDomainSuffix": "",
+        "autoDeploy": true,
+        "analyticsUrl": ""
     },
-    "pages": [
-        {
-            "source": ".",
-            "destination": "/"
-        }
-    ]
+    "staging": {}
 }
