@@ -7,7 +7,7 @@ import Footer from '@/components/Footer'
 import RevealWrapper from '@/components/RevealWrapper'
 
 // ─── Google Analytics 4 ────────────────────────────────────────────────────────
-// 1. Go to analytics.google.com → create a property for cardinalrs.com
+// 1. Go to analytics.google.com → create a property for cardinalresourcesolutions.com
 // 2. Get your Measurement ID (looks like G-XXXXXXXXXX)
 // 3. Replace the value below
 const GA_MEASUREMENT_ID = 'G-XXXXXXXXXX'
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     'waste stream evaluation',
   ],
   authors: [{ name: 'Cardinal Resource Solutions' }],
-  metadataBase: new URL('https://cardinalrs.com'),
+  metadataBase: new URL('https://cardinalresourcesolutions.com'),
   alternates: { canonical: '/' },
   robots: {
     index: true,
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     description:
       'We recover what traditional recyclers reject. 100% landfill diversion for label matrix waste, transit trays, and complex plastic streams. Free sample evaluation.',
     type: 'website',
-    url: 'https://cardinalrs.com',
+    url: 'https://cardinalresourcesolutions.com',
     siteName: 'Cardinal Resource Solutions',
     locale: 'en_US',
   },
@@ -96,7 +96,7 @@ export default function RootLayout({
             name: 'Cardinal Resource Solutions',
             description:
               'Industrial plastic waste recovery. We divert complex plastic streams — label matrix waste, transit trays, adhesive films — 100% from landfills with full ESG documentation.',
-            url: 'https://cardinalrs.com',
+            url: 'https://cardinalresourcesolutions.com',
             email: 'cardinalrs.us@gmail.com',
             address: {
               '@type': 'PostalAddress',

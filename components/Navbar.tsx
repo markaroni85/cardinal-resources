@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
 import Logo from '@/components/Logo'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 const navLinks = [
   { href: '/', label: 'Home' },
