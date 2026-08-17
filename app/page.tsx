@@ -1,18 +1,22 @@
 import Logo from '@/components/Logo'
 import Link from 'next/link'
+import Image from 'next/image'
 
 // ─── Hero Section ──────────────────────────────────────────────────────────────
 function HeroSection() {
   return (
-    <section
-      className="relative min-h-[76vh] flex items-center overflow-hidden"
-      style={{
-        backgroundImage: 'url(https://images.unsplash.com/photo-1504672935809-bb5355f7c2a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-      }}
-    >
-      {/* Dark overlay — heavier on left so text stays readable, lighter on right to show globe */}
+    <section className="relative min-h-[76vh] flex items-center overflow-hidden">
+      <Image
+        src="/images/hero-forest.jpg"
+        alt="Aerial view of a misty forest canopy"
+        fill
+        priority
+        quality={90}
+        sizes="100vw"
+        className="object-cover"
+      />
+
+      {/* Dark overlay — heavier on left so text stays readable, lighter on right to show forest */}
       <div
         className="absolute inset-0"
         aria-hidden="true"
@@ -80,7 +84,7 @@ function HeroSection() {
             </div>
           </div>
 
-          {/* Right — Cardinal compass, floats over the globe photo */}
+          {/* Right — Cardinal compass, floats over the forest photo */}
           <div
             className="flex items-center justify-center lg:justify-end"
             style={{ opacity: 0, animation: 'fadeIn 1s ease 0.4s forwards' }}
