@@ -7,7 +7,7 @@
 - **GitHub Repository**: `https://github.com/markaroni85/cardinal-resources` — dedicated repo, contains only this website's code (verified clean, no secrets, no unrelated project files)
 - **Remote Config**: `.git/config` → origin = `https://github.com/markaroni85/cardinal-resources.git`
 - **Local branch**: `main` (tracks `origin/main`)
-- **Vercel Domain**: `cardinalresourcesolutions.com` + `www.cardinalresourcesolutions.com`
+- **Vercel Domain**: `cardinalrs.com` — verified via DNS (`A` record → Vercel) and confirmed live. **Not** `cardinalresourcesolutions.com` — that domain has no DNS configured at all, despite earlier docs assuming it was the live domain. If you actually want `cardinalresourcesolutions.com` to be the live site, that requires buying/pointing DNS for it and adding it in Vercel Project Settings → Domains — nobody has done that yet.
 - **Deploy method**: Vercel's native Git integration — Vercel watches `main` on the GitHub repo directly and builds/deploys on every push. No GitHub Actions workflow, no GitHub Secrets involved.
 
 > ⚠️ A prior setup mistakenly initialized git at the `C:\TradingPlatform` root and pushed the *entire* trading platform (including credential files) to a differently-named, public repo (`markaroni85/markaroni85-cardinal-resources`). That repo has been made private. If you're reading this in a future session and something about repo/credentials seems off, check that repo's status and confirm all trading-platform credentials were rotated.
@@ -15,7 +15,7 @@
 ### 🔄 Deployment Pipeline
 
 ```
-Code Changes → git push origin main → Vercel detects push via Git integration → Builds → Deploys to cardinalresourcesolutions.com
+Code Changes → git push origin main → Vercel detects push via Git integration → Builds → Deploys to cardinalrs.com
 ```
 
 ### 📁 Repository Structure (key files)
@@ -81,7 +81,7 @@ npm run dev        # Start development server on http://localhost:3000
 ### To Check Vercel Dashboard:
 
 - Open `https://app.vercel.com/` → Find your project → Deployments tab
-- Or check the live site at `https://cardinalresourcesolutions.com`
+- Or check the live site at `https://cardinalrs.com`
 
 ---
 
